@@ -7,4 +7,4 @@ router = APIRouter(prefix="/api", tags=["default"])
 
 @router.get("/")
 async def root_api():
-    return generateResponse("Health Check Passed - Todo API")
+    return generateResponse("Health Check Passed")

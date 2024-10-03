@@ -17,18 +17,18 @@ def str_to_objectid(id):
     except Exception:
         raise ValueError("Invalid ObjectId")
 
-
 async def getAllTodos():
-    todos = []
     cursor = collection.find({})
-    async for document in cursor:
-        document["_id"] = str(document["_id"])
-        todos.append(document)
+    todos = await cursor.to_list(length=None) 
+    
+    # Convert ObjectId to string for each document.
+    for document in todos:
+        document["_id"] = str(document["_id"])  # Convert ObjectId to string for JSON serialization.
+
     return todos
 
-
 async def getTodoById(id):
-    id = str_to_objectid(id)  # Convert string id to ObjectId
+    id = str_to_objectid(id) 
     todo = await collection.find_one({"_id": id})
     if todo:
         todo["_id"] = str(todo["_id"])

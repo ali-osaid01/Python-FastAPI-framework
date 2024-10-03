@@ -16,7 +16,7 @@ async def fetchAllTodos():
 
 @router.post("/", summary="Create a new todo")
 async def addTodo(todo: Todo):
-    response = await createTodo(todo.model_dump())  # model_dump() return a dictionary
+    response = await createTodo(todo.model_dump())  
     if response:
         return response
     raise HTTPException(400, "Failed to create todo")
