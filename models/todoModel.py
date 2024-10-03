@@ -1,3 +1,4 @@
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from config.dbConfig import database
 from bson import ObjectId
@@ -18,14 +19,10 @@ def str_to_objectid(id):
         raise ValueError("Invalid ObjectId")
 
 async def getAllTodos():
-    cursor = collection.find({})
-    todos = await cursor.to_list(length=None) 
-    
-    # Convert ObjectId to string for each document.
-    for document in todos:
-        document["_id"] = str(document["_id"])  # Convert ObjectId to string for JSON serialization.
+    # Fetch all documents directly using to_list()
+    todos = await collection.find({}).to_list(length=None)  # Fetch all documents as a list
 
-    return todos
+    return todos  
 
 async def getTodoById(id):
     id = str_to_objectid(id) 
