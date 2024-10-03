@@ -23,11 +23,9 @@ async def custom_http_exception_handler(request: Request, exc: HTTPException):
         content={"message": exc.detail, "statusCode": exc.status_code},
     )
 
-
 @app.get("/")
-def read_root():
+def root():
     return generateResponse("Welcome to the Todo API")
-
 
 app.include_router(rootRouter)
 app.include_router(todoRouter)

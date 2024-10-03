@@ -9,6 +9,7 @@ router = APIRouter(prefix="/api/todo", tags=["todo"])
 @router.get("/", summary="Retrieve all todos")
 async def fetchAllTodos():
     response = await getAllTodos()
+    print("hello world")
     if response and len(response) > 0:
         return generateResponse("Successfully retrieved todos", response)
     return generateResponse("No todos found", None)
