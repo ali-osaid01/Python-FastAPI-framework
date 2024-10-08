@@ -29,3 +29,7 @@ async def fetchTodoById(id: str):
     if response:
         return generateResponse("Successfully retrieved todo", response)
     raise HTTPException(404, "Todo not found")
+
+@router.delete("/{id}",summary="delete a  todo")
+async def deleteTodo(id:str):
+    return generateResponse("delete the todo")

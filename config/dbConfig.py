@@ -7,4 +7,4 @@ if client:
     print("Connected to MongoDB")
 
 # Database
-database = client.TodoList
+database = client
