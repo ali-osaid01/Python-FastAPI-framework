@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from utils.helpers import generateResponse
-from controllers.rootController import router as rootRouter
-
+from controllers.rootController import router as root_router
+from controllers.auth_controller import router as auth_router
 app = FastAPI()
 
 app.add_middleware(
@@ -26,4 +26,5 @@ async def custom_http_exception_handler(request: Request, exc: HTTPException):
 def root():
     return generateResponse("Welcome to the Todo API")
 
-app.include_router(rootRouter)
+app.include_router(root_router) 
+app.include_router(auth_router) 

@@ -1,12 +1,12 @@
 # user_service.py
 
 from repository.user_repository import UserRepository  # Import UserRepository
-from models import UserModel  # Assuming UserModel is your Pydantic model
+from models.user_model import UserModel  # Assuming UserModel is your Pydantic model
 from fastapi import HTTPException
 
 class UserService:
-    def __init__(self, user_repository: UserRepository):
-        self.user_repository = user_repository
+    def __init__(self):
+        self.user_repository = UserRepository
 
     async def create_user(self, user: UserModel) -> UserModel:
         
