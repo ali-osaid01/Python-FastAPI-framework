@@ -11,13 +11,9 @@ user_service = UserService()
 @router.post("/register")
 async def register(user: UserModel = Body(...)): 
     try:
-        print("API CALLED")
-        print(user)
-        print("BODYYY",Body)
-        # created_user = await user_service.create_user(user)  
-        return generateResponse("User registration successful", data=None)
+        created_user = await user_service.create_user(user)  
+        return generateResponse("User registration successful", data=created_user)
 
-    except HTTPException as http_error:
-        raise http_error
     except Exception as e:
+        print(e)
         return generateResponse("An error occurred during registration", statusCode=500)

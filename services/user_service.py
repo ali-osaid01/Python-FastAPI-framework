@@ -1,8 +1,6 @@
-# user_service.py
-
-from repository.user_repository import UserRepository  # Import UserRepository
-from models.user_model import UserModel  # Assuming UserModel is your Pydantic model
-from fastapi import HTTPException
+from repository.user_repository import UserRepository  
+from models.user_model import UserModel  
+from utils.helpers import generateErrorResponse
 
 class UserService:
     def __init__(self):
@@ -10,9 +8,9 @@ class UserService:
 
     async def create_user(self, user: UserModel) -> UserModel:
         
-        existing_user = await self.user_repository.get_one({"email": user.email})
+        existing_user: UserModel = await self.user_repository.get_one({"email": user.email}) 
         if existing_user:
-            raise HTTPException(status_code=400, detail="Email already registered")
+            generateErrorResponse(400, "User already Exist")
         
         created_user = await self.user_repository.create(user)
         return created_user

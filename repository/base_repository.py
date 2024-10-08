@@ -28,7 +28,7 @@ class BaseRepository(Generic[T, D]):
         self,
         filter: Dict[str, Any],
         project_field: Optional[Dict[str, int]] = None,
-    ) -> Optional[T]:
+    ) -> T:
         document = await self.collection.find_one(filter, project_field or {})
         return document
 
