@@ -11,8 +11,8 @@ user_service = UserService()
 @router.post("/register")
 async def register(user: UserModel = Body(...)): 
     try:
-        created_user = await user_service.create_user(user)  
-        return generateResponse("User registration successful", data=created_user)
+        user = await user_service.create_user(user)  
+        return generateResponse("User registration successful", data=user)
 
     except Exception as e:
         print(e)
