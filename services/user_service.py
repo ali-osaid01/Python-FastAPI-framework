@@ -4,14 +4,14 @@ from utils.helpers import generateErrorResponse
 
 class UserService:
     def __init__(self):
-        self.user_repository = UserRepository
+        self.user_repository = UserRepository()
 
     async def create_user(self, user: UserModel) -> UserModel:
-        print("USER IS HERE",user)
-        existing_user: UserModel = await self.user_repository.get_one() 
+        existing_user: UserModel = await self.user_repository.get_one({"email":user.email}) 
         if existing_user:
             generateErrorResponse(400, "User already Exist")
         
+        print("ELSE BLOCK")
         created_user = await self.user_repository.create(user)
         return created_user
 

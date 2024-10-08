@@ -9,7 +9,6 @@ D = TypeVar('D', bound=BaseModel)
 class BaseRepository(Generic[T, D]):
     def __init__(self, collection: AsyncIOMotorCollection):
         self.collection = collection
-        print("COLLECTION",self.collection)
         
     async def get_all(
         self,

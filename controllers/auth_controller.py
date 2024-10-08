@@ -16,4 +16,4 @@ async def register(user: UserModel = Body(...)):
 
     except Exception as e:
         print(e)
-        return generateResponse("An error occurred during registration", statusCode=500)
+        return generateResponse(e, statusCode=500)
