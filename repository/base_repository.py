@@ -9,7 +9,8 @@ D = TypeVar('D', bound=BaseModel)
 class BaseRepository(Generic[T, D]):
     def __init__(self, collection: AsyncIOMotorCollection):
         self.collection = collection
-
+        print("COLLECTION",self.collection)
+        
     async def get_all(
         self,
         filter: Optional[Dict[str, Any]] = None,
@@ -24,11 +25,7 @@ class BaseRepository(Generic[T, D]):
         cursor = cursor.skip((page - 1) * limit).limit(limit)
         return [item async for item in cursor]
 
-    async def get_one(
-        self,
-        filter: Dict[str, Any],
-        project_field: Optional[Dict[str, int]] = None,
-    ) -> T:
+    async def get_one(self, filter: Dict[str, Any], project_field: Optional[Dict[str, int]] = None) -> T:
         document = await self.collection.find_one(filter, project_field or {})
         return document
 

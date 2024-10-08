@@ -7,8 +7,8 @@ class UserService:
         self.user_repository = UserRepository
 
     async def create_user(self, user: UserModel) -> UserModel:
-        
-        existing_user: UserModel = await self.user_repository.get_one({"email": user.email}) 
+        print("USER IS HERE",user)
+        existing_user: UserModel = await self.user_repository.get_one() 
         if existing_user:
             generateErrorResponse(400, "User already Exist")
         
