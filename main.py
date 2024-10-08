@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from utils.helpers import generateResponse
-from controllers.todoController import router as todoRouter
 from controllers.rootController import router as rootRouter
 
 app = FastAPI()
@@ -28,4 +27,3 @@ def root():
     return generateResponse("Welcome to the Todo API")
 
 app.include_router(rootRouter)
-app.include_router(todoRouter)

@@ -1,4 +1,3 @@
-from models.todoModel import getAllTodos
 from fastapi import APIRouter
 from utils.helpers import generateResponse
 
