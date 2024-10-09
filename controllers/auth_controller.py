@@ -12,5 +12,9 @@ async def register(request: UserModel = Body(...)):
     response = await user_service.register(request)  
     return response
 
-
+@router.post("/login")
+async def register(request: UserModel = Body(...)): 
+    response = await user_service.login(request)  
+    print("RESPONSE",response)
+    return response
   

@@ -1,7 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorCollection
 from typing import List, Optional, Dict, Any, TypeVar, Generic
 from pydantic import BaseModel
-from bson import ObjectId
+from bson import ObjectId,json_util
 
 T = TypeVar('T', bound=BaseModel)
 D = TypeVar('D', bound=BaseModel)
@@ -24,10 +24,13 @@ class BaseRepository(Generic[T, D]):
         cursor = cursor.skip((page - 1) * limit).limit(limit)
         return [item async for item in cursor]
 
-    async def get_one(self, filter: Dict[str, Any], project_field: Optional[Dict[str, int]] = None) -> T:
-        document = await self.collection.find_one(filter, project_field or {})
-        return document
-
+    async def get_one(self, filter: Dict[str, Any], project_field: Optional[Dict[str, int]] = None) -> Optional[T]:
+        document = await self.collection.find_one(filter, projection=project_field or {})
+        if document is not None:
+            document['_id'] = str(document['_id'])
+            return document
+        return None
+    
     async def get_by_id(self, id: str) -> Optional[T]:
         document = await self.collection.find_one({"_id": ObjectId(id)})
         return document

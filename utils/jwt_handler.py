@@ -6,7 +6,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1440 
 
 def create_access_token(data: dict):
-    payload = { "id": data.get('id'), "email":data.get("email")}
+    payload = { "id": data.get('_id'), "email":data.get("email")}
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     payload.update({"exp": expire})
     encoded_jwt = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)

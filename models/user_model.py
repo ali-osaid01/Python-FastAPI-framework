@@ -3,6 +3,7 @@ from typing import Optional
 from bson import ObjectId
 
 class UserModel(BaseModel):
+    id: Optional[str] = None
     email: EmailStr
     password: Optional[str] = None
     fcmToken: Optional[str] = None  
@@ -14,3 +15,5 @@ class UserModel(BaseModel):
         json_encoders = {
             ObjectId: str
         }
+        
+        
