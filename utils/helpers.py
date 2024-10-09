@@ -10,4 +10,4 @@ def generateResponse(message: str, data: dict = None, statusCode: int = 200):
     return JSONResponse(content=responseContent, status_code=statusCode)
 
 def generateErrorResponse(status_code: int, detail: str):
-    return {"status_code": status_code, "detail": detail}
+    raise HTTPException(status_code=status_code,detail=detail)

@@ -9,11 +9,8 @@ router = APIRouter(prefix="/api/auth", tags=["default"])
 user_service = UserService()  
 
 @router.post("/register")
-async def register(user: UserModel = Body(...)): 
-    try:
-        user = await user_service.create_user(user)  
-        return generateResponse("User registration successful", data=user)
+async def register(request: UserModel = Body(...)): 
+    response = await user_service.create_user(request)  
+    return response
 
-    except Exception as e:
-        print(e)
-        return generateResponse(e, statusCode=500)
+  

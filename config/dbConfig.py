@@ -6,7 +6,6 @@ client = AsyncIOMotorClient("mongodb+srv://aliusaid55:y0OTidCWrGVegbAJ@cluster0.
 if client:
     print("Connected to MongoDB")
 
-print("CLIENT",client)
 # Database
 database = client["python-fast-api"]
 

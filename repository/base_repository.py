@@ -32,12 +32,15 @@ class BaseRepository(Generic[T, D]):
         document = await self.collection.find_one({"_id": ObjectId(id)})
         return document
 
-    async def create(self, entity: D) -> str:
-        result = await self.collection.insert_one(entity.dict())
-        return str(result.inserted_id)
+    async def create(self, entity: D) -> Optional[T]:
+        result = await self.collection.insert_one(entity.model_dump())
+        return {
+        "id": str(result.inserted_id),  
+        **entity.model_dump()           
+        }
 
     async def create_many(self, entities: List[D]) -> List[str]:
-        result = await self.collection.insert_many([entity.dict() for entity in entities])
+        result = await self.collection.insert_many([entity.model_dump() for entity in entities])
         return [str(inserted_id) for inserted_id in result.inserted_ids]
 
     async def update_by_id(
