@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from utils.helpers import generateResponse
 from controllers.rootController import router as root_router
 from controllers.auth_controller import router as auth_router
-from middleware.auth_middleware import jwt_middleware
+from controllers.user_controller import router as user_router
+from middleware.auth_middleware import JWTMiddleware
 app = FastAPI()
 
 app.add_middleware(
@@ -14,6 +15,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(JWTMiddleware)
 
 @app.exception_handler(HTTPException)
 async def custom_http_exception_handler(request: Request, exc: HTTPException):
@@ -24,8 +26,8 @@ async def custom_http_exception_handler(request: Request, exc: HTTPException):
 
 @app.get("/")
 def root():
-    return generateResponse("Welcome to the Todo API")
+    return generateResponse("Welcome to the Toucher API")
 
 app.include_router(root_router) 
 app.include_router(auth_router) 
-# app.add_middleware(jwt_middleware)
+app.include_router(user_router)

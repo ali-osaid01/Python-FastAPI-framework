@@ -1,5 +1,5 @@
 from motor.motor_asyncio import AsyncIOMotorCollection
-from typing import List, Optional, Dict, Any, TypeVar, Generic, Type
+from typing import List, Optional, Dict, Any, TypeVar, Generic
 from pydantic import BaseModel
 from bson import ObjectId
 
@@ -12,11 +12,11 @@ class BaseRepository(Generic[T, D]):
         
     async def get_all(
         self,
+        page: int = 1,
+        limit: int = 10,
         filter: Optional[Dict[str, Any]] = None,
         project_field: Optional[Dict[str, int]] = None,
         sort: Optional[Dict[str, int]] = None,
-        page: int = 1,
-        limit: int = 10,
     ) -> List[T]:
         cursor = self.collection.find(filter or {}, project_field or {})
         if sort:
